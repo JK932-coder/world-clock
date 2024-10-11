@@ -24,6 +24,18 @@ function updateTime() {
       "h:mm:ss [<small>]A[</small>]"
     );
   }
+  // Klaipeda
+  let klaipedaElement = document.querySelector("#klaipeda");
+  if (klaipedaElement) {
+    let klaipedaDateElement = klaipedaElement.querySelector(".date");
+    let klaipedaTimeElement = klaipedaElement.querySelector(".time");
+    let klaipedaTime = moment().tz("Europe/Vilnius");
+
+    klaipedaDateElement.innerHTML = klaipedaTime.format("MMMM	Do YYYY");
+    klaipedaTimeElement.innerHTML = klaipedaTime.format(
+      "h:mm:ss [<small>]A[</small>]"
+    );
+  }
 }
 
 function updateCity(event) {
@@ -52,3 +64,20 @@ setInterval(updateTime, 1000);
 
 let citiesSelectElement = document.querySelector("#city");
 citiesSelectElement.addEventListener("change", updateCity);
+
+document.addEventListener("DOMContentLoaded", function () {
+  let citySelect = document.getElementById("city");
+  let backLinkContainer = document.getElementById("back-link-container");
+
+  citySelect.addEventListener("change", function () {
+    let selectedCity = citySelect.value;
+    backLinkContainer.innerHTML = "";
+
+    if (selectedCity === "current") {
+      let backLink = document.createElement("a");
+      backLink.href = "index.html"; 
+      backLink.textContent = "All cities";
+      backLinkContainer.appendChild(backLink);
+    }
+  });
+});
